@@ -2,7 +2,18 @@ const { Op } = require('sequelize');
 const db = require("../db/models");
 const { product, image } = db;
 
-const getProduct = async ({
+const getProduct = async () => {
+  try {
+    const result = await product.findAll({
+      where: { inUse: true },
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getProductPaginate = async ({
   page = undefined,
   perPage = undefined,
   search = null,
@@ -122,4 +133,5 @@ module.exports = {
   editProduct,
   addProduct,
   deleteProduct,
+  getProductPaginate
 };

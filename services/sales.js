@@ -1,7 +1,18 @@
 const db = require("../db/models");
 const { sales, well } = db;
 
-const getSales = async ({
+const getSales = async () => {
+  try {
+    const result = await sales.findAll({
+      include: well,
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getSalesPaginate = async ({
   page = undefined,
   perPage = undefined,
   search = null,
@@ -138,4 +149,5 @@ module.exports = {
   getSaleById,
   editSales,
   addSales,
+  getSalesPaginate
 };

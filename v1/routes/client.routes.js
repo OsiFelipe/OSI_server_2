@@ -9,6 +9,8 @@ module.exports = (app) => {
     .get([paginator.pageable, clientController.getClient, paginator.headers])
     .post(clientController.addClient);
 
+  router.route("/client-paginate").get([paginator.pageable, clientController.getClientPaginate, paginator.headers]);
+
   router
     .route("/client/:idClient")
     .put(clientController.editClient)

@@ -6,8 +6,10 @@ const router = express.Router();
 module.exports = (app) => {
   router
     .route("/well")
-    .get([paginator.pageable, wellController.getWell, paginator.headers])
+    .get(wellController.getWell)
     .post(wellController.addWell);
+
+  router.route("/well-paginate").get([paginator.pageable, wellController.getWellPaginate, paginator.headers]);
 
   router
     .route("/well/:idWell")

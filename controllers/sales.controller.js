@@ -1,15 +1,25 @@
 const salesService = require("../services/sales");
 
-const getSales = async (req, res, next) => {
+const getSales = async (req, res) => {
+  try {
+    const result = await salesService.getSales();
+    res.send({ success: true, data: result });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ success: false, data: { error: error?.message || error } });
+  }
+};
+
+const getSalesPaginate = async (req, res, next) => {
   try {
     const { page, perPage } = req.body.pagination;
     const search = req.query.search;
-    const result = await salesService.getSales({
+    const result = await salesService.getSalesPaginate({
       page,
       perPage,
       search
     });
-    res.send({ success: true, data: result });
     res.totalRecords = result.count;
     res.numberOfPages= Math.ceil(result.count / perPage);
     res.data = result.rows;
@@ -68,4 +78,5 @@ module.exports = {
   getSaleById,
   addSales,
   editSales,
+  getSalesPaginate
 };

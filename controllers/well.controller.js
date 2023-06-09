@@ -1,10 +1,21 @@
 const wellService = require("../services/well");
 
-const getWell = async (req, res, next) => {
+const getWell = async (req, res) => {
+  try {
+    const well = await wellService.getWell();
+    res.send({ success: true, data: well });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ success: false, data: { error: error?.message || error } });
+  }
+};
+
+const getWellPaginate = async (req, res, next) => {
   try {
     const { page, perPage } = req.body.pagination;
     const search = req.query.search;
-    const result = await wellService.getWell({
+    const result = await wellService.getWellPaginate({
       page,
       perPage,
       search
@@ -82,4 +93,5 @@ module.exports = {
   addWell,
   editWell,
   deleteWell,
+  getWellPaginate
 };

@@ -6,8 +6,10 @@ const router = express.Router();
 module.exports = (app) => {
   router
     .route("/product")
-    .get([paginator.pageable, productController.getProduct, paginator.headers])
+    .get(productController.getProduct)
     .post(productController.addProduct);
+
+  router.route("/product-paginate").get([paginator.pageable, productController.getProductPaginate, paginator.headers]);
 
   router
     .route("/product/:idProduct")

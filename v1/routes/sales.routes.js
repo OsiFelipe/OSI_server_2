@@ -6,8 +6,10 @@ const router = express.Router();
 module.exports = (app) => {
   router
     .route("/sales")
-    .get([paginator.pageable, salesController.getSales, paginator.headers])
+    .get(salesController.getSales)
     .post(salesController.addSales);
+
+  router.route("/sales-paginate").get([paginator.pageable, salesController.getSalesPaginate, paginator.headers]);
 
   router
     .route("/sales/:idSales")

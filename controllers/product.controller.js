@@ -1,10 +1,21 @@
 const productService = require("../services/product");
 
-const getProduct = async (req, res, next) => {
+const getProduct = async (req, res) => {
+  try {
+    const result = await productService.getProduct();
+    res.send({ success: true, data: result });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ success: false, data: { error: error?.message || error } });
+  }
+};
+
+const getProductPaginate = async (req, res, next) => {
   try {
     const { page, perPage } = req.body.pagination;
     const search = req.query.search;
-    const result = await productService.getProduct({
+    const result = await productService.getProductPaginate({
       page,
       perPage,
       search
@@ -67,4 +78,5 @@ module.exports = {
   addProduct,
   editProduct,
   deleteProduct,
+  getProductPaginate
 };

@@ -2,7 +2,20 @@ const { Op } = require('sequelize');
 const db = require("../db/models");
 const { client, well } = db;
 
-const getClient = async ({
+const getClient = async () => {
+  try {
+    const result = await client.findAll({
+      where: { active: true },
+      attributes: ["id", "name"],
+      order: [["name", "ASC"]],
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getClientPaginate = async ({
   page = undefined,
   perPage = undefined,
   search = null,
@@ -78,4 +91,5 @@ module.exports = {
   editClient,
   addClient,
   deleteClient,
+  getClientPaginate
 };

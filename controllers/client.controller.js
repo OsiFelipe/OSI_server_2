@@ -1,10 +1,21 @@
 const clientService = require("../services/client");
 
-const getClient = async (req, res, next) => {
+const getClient = async (req, res) => {
+  try {
+    const result = await clientService.getClient();
+    res.send({ success: true, data: result });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ success: false, data: { error: error?.message || error } });
+  }
+};
+
+const getClientPaginate = async (req, res, next) => {
   try {
     const { page, perPage } = req.body.pagination;
     const search = req.query.search;
-    const result = await clientService.getClient({
+    const result = await clientService.getClientPaginate({
       page,
       perPage,
       search
@@ -67,4 +78,5 @@ module.exports = {
   addClient,
   editClient,
   deleteClient,
+  getClientPaginate
 };

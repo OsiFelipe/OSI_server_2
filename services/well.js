@@ -1,7 +1,18 @@
 const db = require("../db/models");
 const { well, client } = db;
 
-const getWell = async ({
+const getWell = async () => {
+  try {
+    const result = await well.findAll({
+      include: client,
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getWellPaginate = async ({
   page = undefined,
   perPage = undefined,
   search = null,
@@ -79,4 +90,5 @@ module.exports = {
   editWell,
   addWell,
   deleteWell,
+  getWellPaginate
 };
