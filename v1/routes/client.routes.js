@@ -16,5 +16,9 @@ module.exports = (app) => {
     .put(clientController.editClient)
     .delete(clientController.deleteClient);
 
+  router
+  .route("/client-detail/:idClient")
+  .get(clientController.getClientDetail);
+  
   app.use(process.env.URI_API, router);
 };

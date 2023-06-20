@@ -15,6 +15,21 @@ const getClient = async () => {
   }
 };
 
+const getClientDetail = async (id) => {
+  try {
+    const result = await client.findOne({
+      where: { id },
+      include: {
+        model: well,
+        order: [["name", "ASC"]],
+      },
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getClientPaginate = async ({
   page = undefined,
   perPage = undefined,
@@ -91,5 +106,6 @@ module.exports = {
   editClient,
   addClient,
   deleteClient,
-  getClientPaginate
+  getClientPaginate,
+  getClientDetail
 };

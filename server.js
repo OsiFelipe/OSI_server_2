@@ -5,6 +5,7 @@ const app = express();
 const db = require("./db/models");
 const cors = require("cors");
 const router = require("./v1");
+const utils = require("./helpers/decisionTree");
 
 const PORT = process.env.DB_PORT || 4000;
 
@@ -65,6 +66,8 @@ app.use(
 app.use(bodyParser.json());
 
 router(app);
+
+utils.execTree();
 
 app.listen(PORT, () => {
   console.log(`🚀  Server is running on port ${PORT}.`);
