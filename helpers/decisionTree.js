@@ -23,7 +23,10 @@ var features = ["color", "shape"];
 
 var dt = new DecisionTree(class_name, features);
 dt.train(training_data);
-
+//NA change to nothing
+//
+//rod pump inner too
+//gas separator last option instead of casing annular
 const execTree = () => {
   try {
     var predicted_class = dt.predict({

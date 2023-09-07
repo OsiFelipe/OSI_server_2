@@ -1,21 +1,26 @@
 var fs = require("fs");
 var path = require("path");
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || "development";
 const dbConfig = require("../../config/config.js")[env];
 var basename = path.basename(__filename);
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
+const sequelize = new Sequelize(
+  dbConfig.database,
+  dbConfig.username,
+  dbConfig.password,
+  {
+    host: dbConfig.host,
+    dialect: dbConfig.dialect,
 
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle,
-  },
-  logging: false,
-});
+    pool: {
+      max: dbConfig.pool.max,
+      min: dbConfig.pool.min,
+      acquire: dbConfig.pool.acquire,
+      idle: dbConfig.pool.idle,
+    },
+    logging: false,
+  }
+);
 
 const db = {};
 

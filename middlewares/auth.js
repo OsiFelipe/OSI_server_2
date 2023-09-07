@@ -1,13 +1,15 @@
 const jwt = require("jsonwebtoken");
-const db = require("./../config/database");
+const db = require("../db/models");
+const { user: User } = db;
+require("dotenv").config();
+const SEED = process.env.SEED || "este-es-el-seed";
 
 // ==========================
 // Verfy Token
 // ==========================
 let verificaToken = (req, res, next) => {
   let token = req.get("token");
-
-  jwt.verify(token, process.env.SEED, (err, decoded) => {
+  jwt.verify(token, SEED, (err, decoded) => {
     if (err) {
       return res.status(401).json({
         ok: false,
@@ -16,25 +18,18 @@ let verificaToken = (req, res, next) => {
         },
       });
     }
-    req.userUuid = decoded.userUuid;
-    db.UserClientAux.findOne({ where: { userUuid: req.userUuid } })
-      .then((userClientAux) => {
-        if (!userClientAux) {
-          db.UserClient.findOne({
-            where: { userUuid: req.userUuid },
-          })
-            .then((userClient) => {
-              req.clientUuid = userClient.clientUuid;
-              next();
-            })
-            .catch((error) => {
-              return res.status(401).json({
-                ok: false,
-                error,
-              });
-            });
+    req.user = decoded.user;
+    req.userId = decoded.userId;
+    User.findOne({ where: { email: req.user } })
+      .then((userFound) => {
+        if (!userFound) {
+          return res.status(401).json({
+            ok: false,
+            error: {
+              message: "Not Authorized",
+            },
+          });
         } else {
-          req.clientUuid = userClientAux.clientUuid;
           next();
         }
       })
@@ -52,17 +47,16 @@ let verificaToken = (req, res, next) => {
 // ==========================
 let verifyRole = (roles) => {
   return async (req, res, next) => {
-    let user = req.userUuid;
-
-    const userApp = await db.User.findByPk(user);
-    req.roleId = userApp.dataValues.roleId;
-    if (userApp.dataValues.roleId === 3) {
+    let user = req.userId;
+    const userApp = await User.findByPk(user);
+    req.idRol = userApp.dataValues.idRol;
+    if (req.idRol === 0) {
       next();
     } else {
-      if (roles.includes(userApp.dataValues.roleId)) {
+      if (roles.includes(req.idRol)) {
         next();
       } else {
-        return res.json({
+        return res.status(401).json({
           ok: false,
           error: {
             message: "Not authorize for this resource!",

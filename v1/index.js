@@ -1,5 +1,7 @@
 "use strict";
 
+const { verificaToken, verifyRole } = require("../middlewares/auth");
+
 const routes = [
   require("./routes/client.routes"),
   require("./routes/user.routes"),
@@ -10,6 +12,7 @@ const routes = [
   require("./routes/sales.routes"),
   require("./routes/customTool.routes"),
   require("./routes/login.routes"),
+  require("./routes/combo.routes"),
   require("./routes/test.routes"),
 ];
 
@@ -18,10 +21,11 @@ module.exports = function router(app) {
     return (
       routes &&
       routes.forEach((route) => {
-        route(app);
+        route(app, verificaToken, verifyRole);
       })
     );
   } catch (e) {
+    console.log(e);
     throw e;
   }
 };

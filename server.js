@@ -5,17 +5,13 @@ const app = express();
 const db = require("./db/models");
 const cors = require("cors");
 const router = require("./v1");
-const utils = require("./helpers/decisionTree");
+// const utils = require("./helpers/decisionTree");
 
 const PORT = process.env.DB_PORT || 4000;
 
 var corsOptions = {
   origin: ["http://localhost:3000", "http://salesapp.odessaseparator.com"],
-  exposedHeaders: [
-    'X-Total-Records',
-    'X-Total-Pages',
-    'X-Current-Page',
-  ]
+  exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],
 };
 
 app.use(cors(corsOptions));
@@ -67,7 +63,7 @@ app.use(bodyParser.json());
 
 router(app);
 
-utils.execTree();
+// utils.execTree();
 
 app.listen(PORT, () => {
   console.log(`🚀  Server is running on port ${PORT}.`);

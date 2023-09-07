@@ -2,16 +2,16 @@ const express = require("express");
 const userController = require("../../controllers/user.controller");
 const router = express.Router();
 
-module.exports = (app) => {
+module.exports = (app, verificaToken, verifyRole) => {
   router
     .route("/user")
-    .get(userController.getUsers)
-    .post(userController.addUser);
+    .get(verificaToken, verifyRole([0, 1, 2]), userController.getUsers)
+    .post(verificaToken, verifyRole([0]), userController.addUser);
 
   router
     .route("/user/:idUser")
-    .put(userController.editUser)
-    .delete(userController.deleteUser);
+    .put(verificaToken, verifyRole([0]), userController.editUser)
+    .delete(verificaToken, verifyRole([0]), userController.deleteUser);
 
   app.use(process.env.URI_API, router);
 };

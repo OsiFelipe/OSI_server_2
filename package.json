@@ -1,7 +1,7 @@
 {
-  "name": "futurof",
+  "name": "osi_app",
   "version": "1.0.0",
-  "description": "This is an app to manage pays and savings",
+  "description": "This is an app for OSI Sales",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

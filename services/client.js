@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 const db = require("../db/models");
 const { client, well } = db;
 
@@ -45,8 +45,8 @@ const getClientPaginate = async ({
               [Op.like]: `%${search}%`,
             },
           },
-        ]
-      }
+        ],
+      };
     }
     const result = await client.findAndCountAll({
       offset: page && perPage ? page * perPage : undefined,
@@ -73,11 +73,12 @@ const addClient = async ({ name }) => {
   }
 };
 
-const editClient = async (idClient, { name }) => {
+const editClient = async (idClient, { name, active }) => {
   try {
     const result = await client.update(
       {
         name,
+        active,
       },
       { where: { id: idClient } }
     );
@@ -107,5 +108,5 @@ module.exports = {
   addClient,
   deleteClient,
   getClientPaginate,
-  getClientDetail
+  getClientDetail,
 };
