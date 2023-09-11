@@ -7,7 +7,7 @@ const getTally = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -27,7 +27,7 @@ const getTallyDetail = async (req, res, next) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -44,7 +44,7 @@ const getTallyById = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -55,7 +55,7 @@ const addTally = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -69,7 +69,7 @@ const editTally = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -86,7 +86,7 @@ const deleteTally = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 

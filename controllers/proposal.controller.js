@@ -7,7 +7,7 @@ const getProposal = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -27,7 +27,7 @@ const getProposalDetail = async (req, res, next) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -44,7 +44,7 @@ const getProposalById = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -63,7 +63,7 @@ const getInfoSolTechProposalById = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -74,7 +74,7 @@ const getInfoTechProposal = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -85,7 +85,7 @@ const addProposal = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -102,7 +102,7 @@ const editProposal = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -119,7 +119,7 @@ const deleteProposal = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 

@@ -7,7 +7,7 @@ const getWell = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -21,7 +21,7 @@ const getWellDetail = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -41,7 +41,7 @@ const getWellPaginate = async (req, res, next) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -55,7 +55,7 @@ const getWellByClientId = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -66,7 +66,7 @@ const addWell = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -80,7 +80,7 @@ const editWell = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -97,7 +97,7 @@ const deleteWell = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 

@@ -7,7 +7,7 @@ const getCombo = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -27,7 +27,7 @@ const getComboPaginate = async (req, res, next) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -38,7 +38,7 @@ const addCombo = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -52,7 +52,7 @@ const editCombo = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
@@ -69,7 +69,7 @@ const deleteCombo = async (req, res) => {
   } catch (error) {
     res
       .status(error.status || 500)
-      .send({ success: false, data: { error: error?.message || error } });
+      .send({ success: false, data: { error: error.message || error } });
   }
 };
 
