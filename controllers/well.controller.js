@@ -6,7 +6,7 @@ const getWell = async (req, res) => {
     res.send({ success: true, data: well });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -20,7 +20,7 @@ const getWellDetail = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -32,15 +32,15 @@ const getWellPaginate = async (req, res, next) => {
     const result = await wellService.getWellPaginate({
       page,
       perPage,
-      search
+      search,
     });
     res.totalRecords = result.count;
-    res.numberOfPages= Math.ceil(result.count / perPage);
+    res.numberOfPages = Math.ceil(result.count / perPage);
     res.data = result.rows;
     next();
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -54,7 +54,7 @@ const getWellByClientId = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -65,7 +65,7 @@ const addWell = async (req, res) => {
     res.send({ success: true, data: {} });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -79,7 +79,7 @@ const editWell = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -96,7 +96,7 @@ const deleteWell = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -108,5 +108,5 @@ module.exports = {
   editWell,
   deleteWell,
   getWellPaginate,
-  getWellDetail
+  getWellDetail,
 };

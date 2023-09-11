@@ -6,7 +6,7 @@ const getProposal = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -18,15 +18,15 @@ const getProposalDetail = async (req, res, next) => {
     const result = await proposalService.getProposalDetail({
       page,
       perPage,
-      search
+      search,
     });
     res.totalRecords = result.count;
-    res.numberOfPages= Math.ceil(result.count / perPage);
+    res.numberOfPages = Math.ceil(result.count / perPage);
     res.data = result.rows;
     next();
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -43,7 +43,7 @@ const getProposalById = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -62,7 +62,7 @@ const getInfoSolTechProposalById = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -73,7 +73,7 @@ const getInfoTechProposal = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -84,7 +84,7 @@ const addProposal = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -101,7 +101,7 @@ const editProposal = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -118,7 +118,7 @@ const deleteProposal = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };

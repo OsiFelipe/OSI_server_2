@@ -9,7 +9,7 @@ const getTest = async (req, res) => {
     });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };

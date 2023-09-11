@@ -6,7 +6,7 @@ const getClient = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -20,7 +20,7 @@ const getClientDetail = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -32,15 +32,15 @@ const getClientPaginate = async (req, res, next) => {
     const result = await clientService.getClientPaginate({
       page,
       perPage,
-      search
+      search,
     });
     res.totalRecords = result.count;
-    res.numberOfPages= Math.ceil(result.count / perPage);
+    res.numberOfPages = Math.ceil(result.count / perPage);
     res.data = result.rows;
     next();
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -51,7 +51,7 @@ const addClient = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -65,7 +65,7 @@ const editClient = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -82,7 +82,7 @@ const deleteClient = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -93,5 +93,5 @@ module.exports = {
   editClient,
   deleteClient,
   getClientPaginate,
-  getClientDetail
+  getClientDetail,
 };

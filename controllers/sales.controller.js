@@ -6,7 +6,7 @@ const getSales = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -18,15 +18,15 @@ const getSalesPaginate = async (req, res, next) => {
     const result = await salesService.getSalesPaginate({
       page,
       perPage,
-      search
+      search,
     });
     res.totalRecords = result.count;
-    res.numberOfPages= Math.ceil(result.count / perPage);
+    res.numberOfPages = Math.ceil(result.count / perPage);
     res.data = result.rows;
     next();
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -43,7 +43,7 @@ const getSaleById = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -54,7 +54,7 @@ const addSales = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -68,7 +68,7 @@ const editSales = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -78,5 +78,5 @@ module.exports = {
   getSaleById,
   addSales,
   editSales,
-  getSalesPaginate
+  getSalesPaginate,
 };

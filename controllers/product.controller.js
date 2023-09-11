@@ -6,7 +6,7 @@ const getProduct = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -18,15 +18,15 @@ const getProductPaginate = async (req, res, next) => {
     const result = await productService.getProductPaginate({
       page,
       perPage,
-      search
+      search,
     });
     res.totalRecords = result.count;
-    res.numberOfPages= Math.ceil(result.count / perPage);
+    res.numberOfPages = Math.ceil(result.count / perPage);
     res.data = result.rows;
     next();
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -37,7 +37,7 @@ const addProduct = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -51,7 +51,7 @@ const editProduct = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -68,7 +68,7 @@ const deleteProduct = async (req, res) => {
     res.send({ success: true, data: result });
   } catch (error) {
     res
-      .status(error?.status || 500)
+      .status(error.status || 500)
       .send({ success: false, data: { error: error?.message || error } });
   }
 };
@@ -78,5 +78,5 @@ module.exports = {
   addProduct,
   editProduct,
   deleteProduct,
-  getProductPaginate
+  getProductPaginate,
 };
