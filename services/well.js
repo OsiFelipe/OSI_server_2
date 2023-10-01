@@ -48,7 +48,7 @@ const getWellPaginate = async ({
 
 const getWellByClientId = async (clientId) => {
   try {
-    const result = await well.findAll({ where: { clientId } });
+    const result = await well.findAll({ where: { clientId, active: true } });
     return result;
   } catch (error) {
     throw error;
@@ -108,5 +108,5 @@ module.exports = {
   addWell,
   deleteWell,
   getWellPaginate,
-  getWellDetail
+  getWellDetail,
 };

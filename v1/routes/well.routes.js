@@ -1,6 +1,10 @@
 const express = require("express");
 const paginator = require("../../middlewares/paginator");
 const wellController = require("../../controllers/well.controller");
+const {
+  verificaTokenClient,
+  verifyRoleClient,
+} = require("../../middlewares/auth");
 const router = express.Router();
 
 module.exports = (app, verificaToken, verifyRole) => {
@@ -26,7 +30,15 @@ module.exports = (app, verificaToken, verifyRole) => {
     .route("/well/client/:clientId")
     .get(
       verificaToken,
-      verifyRole([0, 1, 2]),
+      verifyRole([0, 1, 2, 3]),
+      wellController.getWellByClientId
+    );
+
+  router
+    .route("/well-client/:clientId")
+    .get(
+      verificaTokenClient,
+      verifyRoleClient([3]),
       wellController.getWellByClientId
     );
 

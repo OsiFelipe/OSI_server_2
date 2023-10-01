@@ -7,7 +7,7 @@ const cors = require("cors");
 const router = require("./v1");
 // const utils = require("./helpers/decisionTree");
 
-const PORT = process.env.DB_PORT || 8080;
+const PORT = process.env.DB_PORT || 4000;
 
 var corsOptions = {
   origin: ["http://localhost:3000", "http://salesapp.odessaseparator.com"],
@@ -43,14 +43,26 @@ app.use(
   })
 );
 
-// db.sequelize
-//   .sync({ force: false })
-//   .then(() => {
-//     console.log("Synced db.");
-//   })
-//   .catch((err) => {
-//     console.log("Failed to sync db: " + err.message);
-//   });
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch((error) => {
+    console.error("Unable to connect to the database: ", error);
+  });
+
+db.sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Synced db.");
+    app.listen(PORT, () => {
+      console.log(`🚀  Server is running on port ${PORT}.`);
+    });
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
 
 app.use(express.json());
 
@@ -61,10 +73,10 @@ app.use(
 );
 app.use(bodyParser.json());
 
-router(app);
+router(app, db);
 
 // utils.execTree();
 
-app.listen(PORT, () => {
-  console.log(`🚀  Server is running on port ${PORT}.`);
-});
+// app.listen(PORT, () => {
+//   console.log(`🚀  Server is running on port ${PORT}.`);
+// });

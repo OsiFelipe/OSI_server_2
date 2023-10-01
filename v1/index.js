@@ -1,6 +1,11 @@
 "use strict";
 
-const { verificaToken, verifyRole } = require("../middlewares/auth");
+const {
+  verificaToken,
+  verifyRole,
+  verificaTokenClient,
+  verifyRoleClient,
+} = require("../middlewares/auth");
 
 const routes = [
   require("./routes/client.routes"),
@@ -13,6 +18,7 @@ const routes = [
   require("./routes/customTool.routes"),
   require("./routes/login.routes"),
   require("./routes/combo.routes"),
+  require("./routes/pulling.routes"),
   require("./routes/test.routes"),
 ];
 
@@ -21,7 +27,13 @@ module.exports = function router(app) {
     return (
       routes &&
       routes.forEach((route) => {
-        route(app, verificaToken, verifyRole);
+        route(
+          app,
+          verificaToken,
+          verifyRole,
+          verificaTokenClient,
+          verifyRoleClient
+        );
       })
     );
   } catch (e) {
