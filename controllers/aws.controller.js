@@ -18,6 +18,7 @@ const getPullingByKey = (req, res) => {
     };
     s3.getObject(s3params, (err, data) => {
       if (err) {
+        console.log(err);
         return res
           .status(err.status || 500)
           .send({ success: false, data: { error: err.message || err } });
