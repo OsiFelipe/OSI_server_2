@@ -7,10 +7,14 @@ const cors = require("cors");
 const router = require("./v1");
 // const utils = require("./helpers/decisionTree");
 
-const PORT = process.env.DB_PORT || 4000;
+const PORT = process.env.DB_PORT || 8080;
 
 var corsOptions = {
-  origin: ["http://localhost:3000", "http://salesapp.odessaseparator.com"],
+  origin: [
+    "http://localhost:3000",
+    "http://salesapp.odessaseparator.com",
+    "http://odessaseparator.s3-website-us-east-1.amazonaws.com",
+  ],
   exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],
 };
 
