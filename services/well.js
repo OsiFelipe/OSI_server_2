@@ -5,6 +5,7 @@ const getWell = async () => {
   try {
     const result = await well.findAll({
       include: client,
+      order: [["name", "ASC"]],
     });
     return result;
   } catch (error) {
@@ -39,6 +40,7 @@ const getWellPaginate = async ({
       offset: page && perPage ? page * perPage : undefined,
       limit: perPage,
       include: client,
+      order: [["name", "ASC"]],
     });
     return result;
   } catch (error) {
@@ -48,7 +50,10 @@ const getWellPaginate = async ({
 
 const getWellByClientId = async (clientId) => {
   try {
-    const result = await well.findAll({ where: { clientId, active: true } });
+    const result = await well.findAll({
+      where: { clientId, active: true },
+      order: [["name", "ASC"]],
+    });
     return result;
   } catch (error) {
     throw error;
