@@ -1,7 +1,7 @@
 const express = require("express");
-const paginator = require("../../middlewares/paginator");
 const pullingController = require("../../controllers/pulling.controller");
 const awsController = require("../../controllers/aws.controller");
+const { uploadFile } = require("../../middlewares/upload");
 const router = express.Router();
 
 module.exports = (
@@ -30,6 +30,13 @@ module.exports = (
       verifyRoleClient([3]),
       awsController.getPullingByKey
     );
+
+  router.route("/pulling-upload").post(
+    //verificaToken,
+    // verifyRole([0, 1, 2]),
+    uploadFile.single("file"),
+    awsController.uploadToAws
+  );
 
   router
     .route("/pdf-pulling-adm")

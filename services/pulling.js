@@ -3,7 +3,26 @@ const { pulling } = db;
 
 const getPullingByWellId = async (idWell) => {
   try {
-    const result = await pulling.findAll({ where: { idWell, active: true } });
+    const result = await pulling.findAll({
+      where: { idWell, active: true },
+      order: [["date", "DESC"]],
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const addPulling = async (client, well, customName, path, fileName) => {
+  try {
+    const result = await pulling.create({
+      idClient: client.id,
+      idWell: well.id,
+      customName: customName + "-" + fileName,
+      path,
+      date: new Date(),
+      active: true,
+    });
     return result;
   } catch (error) {
     throw error;
@@ -12,4 +31,5 @@ const getPullingByWellId = async (idWell) => {
 
 module.exports = {
   getPullingByWellId,
+  addPulling,
 };

@@ -1,4 +1,7 @@
 const AWS = require("aws-sdk");
+const pullingService = require("../services/pulling");
+const { generateRandomString } = require("../helpers/utils");
+
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET,
@@ -39,6 +42,55 @@ const getPullingByKey = (req, res) => {
   }
 };
 
+const uploadToAws = (req, res) => {
+  try {
+    const { customName } = req.body;
+    const client = JSON.parse(req.body.client);
+    const well = JSON.parse(req.body.well);
+    const fileName = req.file.originalname;
+    const key =
+      client.name +
+      "/" +
+      well.name +
+      "/" +
+      customName +
+      "/" +
+      fileName +
+      "-" +
+      generateRandomString();
+    s3.upload(
+      {
+        Bucket: bucketName,
+        Key: key,
+        Body: req.file.buffer,
+      },
+      async (err, data) => {
+        if (err) {
+          console.log(err);
+          return res
+            .status(err.status || 500)
+            .send({ success: false, data: { error: err.message || err } });
+        } else {
+          const result = await pullingService.addPulling(
+            client,
+            well,
+            customName,
+            key,
+            fileName
+          );
+          res.send({ success: true, data });
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(err.status || 500)
+      .send({ success: false, data: { error: err.message || err } });
+  }
+};
+
 module.exports = {
   getPullingByKey,
+  uploadToAws,
 };
