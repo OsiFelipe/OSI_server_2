@@ -19,6 +19,7 @@ const routes = [
   require("./routes/login.routes"),
   require("./routes/combo.routes"),
   require("./routes/pulling.routes"),
+  require("./routes/pullingDesign.routes"),
   require("./routes/test.routes"),
 ];
 

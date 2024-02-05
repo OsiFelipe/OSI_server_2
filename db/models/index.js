@@ -74,4 +74,10 @@ db.sales.belongsTo(db.user);
 db.well.hasMany(db.sales, { foreignKey: "wellId" });
 db.sales.belongsTo(db.well);
 
+/**
+ * Well-Tally
+ */
+db.well.hasMany(db.pullingDesign, { foreignKey: "wellId" });
+db.pullingDesign.belongsTo(db.well);
+
 module.exports = db;

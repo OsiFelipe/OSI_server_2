@@ -2,10 +2,9 @@ module.exports = {
   apps: [
     {
       name: "Sales App",
-      script: "server.js",
+      script: "npm run dev",
       watch: true,
       merge_logs: true,
-      cwd: "/home/ubuntu/projects/OSI_server_2",
     },
   ],
 };

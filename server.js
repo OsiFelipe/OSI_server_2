@@ -11,7 +11,7 @@ const PORT = process.env.DB_PORT || 8080;
 
 var corsOptions = {
   origin: [
-    // "http://localhost:3000",
+    "http://localhost:3000",
     "http://salesapp.odessaseparator.com",
     "http://odessaseparator.s3-website-us-east-1.amazonaws.com",
   ],

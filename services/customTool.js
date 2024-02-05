@@ -5,6 +5,7 @@ const editCustomTool = async (
   idProduct,
   {
     name,
+    description,
     topThreadConnection,
     bottomThreadConnection,
     maxOD,
@@ -17,7 +18,7 @@ const editCustomTool = async (
     const result = await customTool.update(
       {
         name,
-        description: name,
+        description,
         topThreadConnection,
         bottomThreadConnection,
         maxOD,
