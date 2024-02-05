@@ -5,15 +5,20 @@ const app = express();
 const db = require("./db/models");
 const cors = require("cors");
 const router = require("./v1");
+const https = require("node:https");
+const fs = require("fs");
 // const utils = require("./helpers/decisionTree");
 
 const PORT = process.env.DB_PORT || 8080;
+const crt = process.env.CERT_CRT;
+const key = process.env.CERT_KEY;
 
 var corsOptions = {
   origin: [
-    "http://localhost:3000",
+    // "http://localhost:3000",
     "http://salesapp.odessaseparator.com",
     "http://odessaseparator.s3-website-us-east-1.amazonaws.com",
+    "https://osidesigner.com",
   ],
   exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],
 };
@@ -60,9 +65,21 @@ db.sequelize
   .sync({ force: false })
   .then(() => {
     console.log("Synced db.");
-    app.listen(PORT, () => {
-      console.log(`🚀  Server is running on port ${PORT}.`);
-    });
+    // app.listen(PORT, () => {
+    //   console.log(`🚀  Server is running on port ${PORT}.`);
+    // });
+
+    https
+      .createServer(
+        {
+          cert: fs.readFileSync(crt),
+          key: fs.readFileSync(key),
+        },
+        app
+      )
+      .listen(PORT, function () {
+        console.log(`App listening on port ${PORT}`);
+      });
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
