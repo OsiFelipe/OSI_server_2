@@ -32,7 +32,7 @@ module.exports = (
     );
 
   router.route("/pulling-upload").post(
-    //verificaToken,
+    verificaToken,
     // verifyRole([0, 1, 2]),
     uploadFile.single("file"),
     awsController.uploadToAws
@@ -41,6 +41,10 @@ module.exports = (
   router
     .route("/pdf-pulling-adm")
     .post(verificaToken, verifyRole([3]), awsController.getPullingByKey);
+
+  router
+    .route("/pulling-file/:idPulling")
+    .delete(verificaToken, verifyRole([3]), pullingController.deletePulling);
 
   app.use(process.env.URI_API, router);
 };

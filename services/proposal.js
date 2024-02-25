@@ -6,6 +6,7 @@ const getProposal = async () => {
     const result = await proposal.findAll({
       where: { active: true },
       order: [["date", "DESC"]],
+      include: [{ model: well, attributes: ["name"], where: { active: true } }],
     });
     return result;
   } catch (error) {
@@ -27,6 +28,7 @@ const getProposalDetail = async ({
       include: {
         model: well,
         attributes: ["name"],
+        where: { active: true },
         include: { model: client, attributes: ["name"] },
       },
       order: [["date", "DESC"]],
@@ -39,7 +41,14 @@ const getProposalDetail = async ({
 
 const getProposalById = async ({ id }) => {
   try {
-    const foundProposal = await proposal.findByPk(id, { raw: true });
+    const foundProposal = await proposal.findByPk(id, {
+      include: {
+        model: well,
+        attributes: ["name"],
+        where: { active: true },
+      },
+      raw: true,
+    });
     const result = {
       ...foundProposal,
       solution: {
@@ -61,7 +70,14 @@ const getProposalById = async ({ id }) => {
 
 const getInfoSolTechProposalById = async ({ id }) => {
   try {
-    const foundProposal = await proposal.findByPk(id, { raw: true });
+    const foundProposal = await proposal.findByPk(id, {
+      include: {
+        model: well,
+        attributes: ["name"],
+        where: { active: true },
+      },
+      raw: true,
+    });
     const result = {
       sandSolution: foundProposal.sandSolution,
       gasSolution: foundProposal.gasSolution,

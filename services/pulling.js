@@ -29,7 +29,24 @@ const addPulling = async (client, well, customName, path, fileName) => {
   }
 };
 
+const deletePulling = async ({ id }) => {
+  try {
+    const result = await pulling.update(
+      {
+        active: false,
+      },
+      {
+        where: { id },
+      }
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getPullingByWellId,
   addPulling,
+  deletePulling,
 };

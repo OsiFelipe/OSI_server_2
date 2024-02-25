@@ -16,8 +16,6 @@ const key = process.env.CERT_KEY;
 var corsOptions = {
   origin: [
     // "http://localhost:3000",
-    "http://salesapp.odessaseparator.com",
-    "http://odessaseparator.s3-website-us-east-1.amazonaws.com",
     "https://osidesigner.com",
   ],
   exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],

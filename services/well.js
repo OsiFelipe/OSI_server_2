@@ -4,6 +4,7 @@ const { well, client, proposal, tally } = db;
 const getWell = async () => {
   try {
     const result = await well.findAll({
+      where: { active: true },
       include: client,
       order: [["name", "ASC"]],
     });
@@ -37,6 +38,7 @@ const getWellPaginate = async ({
 }) => {
   try {
     const result = await well.findAndCountAll({
+      where: { active: true },
       offset: page && perPage ? page * perPage : undefined,
       limit: perPage,
       include: client,
@@ -92,13 +94,13 @@ const editWell = async (idWell, { name, idClient, contact, phoneNumber }) => {
   }
 };
 
-const deleteWell = async (id) => {
+const deleteWell = async ({ id }) => {
   try {
     const result = await well.update(
-      { id },
       {
         active: false,
-      }
+      },
+      { where: { id } }
     );
     return result;
   } catch (error) {

@@ -8,6 +8,7 @@ const getPullingList = async () => {
       order: [["createdAt", "DESC"]],
       include: {
         model: well,
+        where: { active: true },
         include: { model: client },
       },
     });
@@ -22,6 +23,7 @@ const getPullingDetail = async ({ id }) => {
     const result = await pullingDesign.findByPk(id, {
       include: {
         model: well,
+        where: { active: true },
         include: { model: client },
       },
     });
@@ -30,30 +32,6 @@ const getPullingDetail = async ({ id }) => {
     throw error;
   }
 };
-
-// const getTallyDetail = async ({
-//   page = undefined,
-//   perPage = undefined,
-//   search = null,
-// }) => {
-//   try {
-//     const result = await tally.findAndCountAll({
-//       offset: page && perPage ? page * perPage : undefined,
-//       limit: perPage,
-//       where: { active: true },
-//       attributes: ["id", "customName", "date"],
-//       include: {
-//         model: well,
-//         attributes: ["name"],
-//         include: { model: client, attributes: ["name"] },
-//       },
-//       order: [["date", "DESC"]],
-//     });
-//     return result;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
 
 const createPulling = async ({
   customName,

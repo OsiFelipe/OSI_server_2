@@ -5,6 +5,11 @@ const getTally = async () => {
   try {
     const result = await tally.findAll({
       where: { active: true },
+      include: {
+        model: well,
+        attributes: ["name"],
+        where: { active: true },
+      },
       order: [["date", "DESC"]],
     });
     return result;
@@ -27,6 +32,7 @@ const getTallyDetail = async ({
       include: {
         model: well,
         attributes: ["name"],
+        where: { active: true },
         include: { model: client, attributes: ["name"] },
       },
       order: [["date", "DESC"]],
@@ -39,7 +45,13 @@ const getTallyDetail = async ({
 
 const getTallyById = async ({ id }) => {
   try {
-    const result = await tally.findByPk(id);
+    const result = await tally.findByPk(id, {
+      include: {
+        model: well,
+        attributes: ["name"],
+        where: { active: true },
+      },
+    });
     return result;
   } catch (error) {
     throw error;

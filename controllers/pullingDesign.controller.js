@@ -11,26 +11,6 @@ const getPullingList = async (req, res) => {
   }
 };
 
-// const getPullingDetail = async (req, res, next) => {
-//   try {
-//     const { page, perPage } = req.body.pagination;
-//     const search = req.query.search;
-//     const result = await pullingService.getTallyDetail({
-//       page,
-//       perPage,
-//       search,
-//     });
-//     res.totalRecords = result.count;
-//     res.numberOfPages = Math.ceil(result.count / perPage);
-//     res.data = result.rows;
-//     next();
-//   } catch (error) {
-//     res
-//       .status(error.status || 500)
-//       .send({ success: false, data: { error: error.message || error } });
-//   }
-// };
-
 const getPullingDetail = async (req, res) => {
   try {
     const {
