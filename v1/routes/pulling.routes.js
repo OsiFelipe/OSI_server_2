@@ -32,7 +32,7 @@ module.exports = (
     );
 
   router.route("/pulling-upload").post(
-    verificaToken,
+    // verificaToken,
     // verifyRole([0, 1, 2]),
     uploadFile.single("file"),
     awsController.uploadToAws

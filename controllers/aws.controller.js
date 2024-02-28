@@ -65,8 +65,9 @@ const uploadToAws = (req, res) => {
         Body: req.file.buffer,
       },
       async (err, data) => {
+        console.log(data);
         if (err) {
-          console.log(err);
+          console.log("Im here at this point");
           return res
             .status(err.status || 500)
             .send({ success: false, data: { error: err.message || err } });
@@ -78,7 +79,7 @@ const uploadToAws = (req, res) => {
             key,
             fileName
           );
-          res.send({ success: true, data });
+          res.send({ success: true, data: result });
         }
       }
     );
