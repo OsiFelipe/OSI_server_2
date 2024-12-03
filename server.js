@@ -16,7 +16,7 @@ const key = process.env.CERT_KEY;
 var corsOptions = {
   origin: [
     // "http://localhost:3000",
-    "http://uat.osidesigner.com",
+    "https://uat.osidesigner.com",
 
     "https://osidesigner.com",
   ],
