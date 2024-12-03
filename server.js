@@ -14,7 +14,11 @@ const crt = process.env.CERT_CRT;
 const key = process.env.CERT_KEY;
 
 var corsOptions = {
-  origin: ["http://localhost:3000", "https://osidesigner.com"],
+  origin: [
+    // "http://localhost:3000",
+    "http://uat.osidesigner.com",
+    "https://osidesigner.com",
+  ],
   exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],
 };
 
