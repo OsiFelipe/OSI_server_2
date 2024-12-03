@@ -17,6 +17,7 @@ var corsOptions = {
   origin: [
     // "http://localhost:3000",
     "http://uat.osidesigner.com",
+
     "https://osidesigner.com",
   ],
   exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],
