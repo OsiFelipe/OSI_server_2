@@ -49,6 +49,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         default: null,
       },
+      toolRichText: {
+        type: Sequelize.TEXT,
+        default: null,
+      },
     },
     {
       tableName: "tbCustomTool",

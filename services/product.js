@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 const db = require("../db/models");
 const { product, image } = db;
 
@@ -7,6 +7,15 @@ const getProduct = async () => {
     const result = await product.findAll({
       where: { inUse: true },
     });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getProductById = async (idProduct) => {
+  try {
+    const result = await product.findByPk(idProduct);
     return result;
   } catch (error) {
     throw error;
@@ -33,16 +42,18 @@ const getProductPaginate = async ({
               [Op.like]: `%${search}%`,
             },
           },
-        ]
-      }
+        ],
+      };
     }
     const result = await product.findAndCountAll({
       offset: page && perPage ? page * perPage : undefined,
       limit: perPage,
-      where: { ...productWhere, inUse: true},
+      where: { ...productWhere, inUse: true },
+      order: [["id", "ASC"]],
     });
     return result;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
@@ -76,37 +87,17 @@ const addProduct = async ({
   }
 };
 
-const editProduct = async (
-  idProduct,
-  {
-    partNumber,
-    name,
-    topThreadConnection,
-    bottomThreadConnection,
-    maxOD,
-    bodyOD,
-    length,
-    weight,
-  }
-) => {
+const editProduct = async (idProduct, body) => {
   try {
-    const result = await product.update(
-      {
-        partNumber,
-        name,
-        description: name,
-        topThreadConnection,
-        bottomThreadConnection,
-        maxOD,
-        bodyOD,
-        length,
-        weight,
-      },
-      {
-        where: { id: idProduct },
-      }
-    );
-    return result;
+    let updates = {};
+    Object.entries(body).forEach(([key, value]) => {
+      updates[key] = value;
+    });
+    const result = await product.update(updates, {
+      where: { id: idProduct },
+    });
+    console.log(result);
+    return true;
   } catch (error) {
     throw error;
   }
@@ -130,8 +121,9 @@ const deleteProduct = async (id) => {
 
 module.exports = {
   getProduct,
+  getProductById,
   editProduct,
   addProduct,
   deleteProduct,
-  getProductPaginate
+  getProductPaginate,
 };

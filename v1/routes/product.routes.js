@@ -19,6 +19,11 @@ module.exports = (app, verificaToken, verifyRole) => {
 
   router
     .route("/product/:idProduct")
+    .get(
+      verificaToken,
+      verifyRole([0, 1, 2, 3]),
+      productController.getProductById
+    )
     .put(verificaToken, verifyRole([0, 1]), productController.editProduct)
     .delete(verificaToken, verifyRole([0, 1]), productController.deleteProduct);
 

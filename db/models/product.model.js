@@ -49,6 +49,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         default: null,
       },
+      toolRichText: {
+        type: Sequelize.TEXT,
+        default: null,
+      },
+      osi: {
+        type: Sequelize.BOOLEAN,
+        default: true,
+      },
     },
     {
       tableName: "tbProduct",

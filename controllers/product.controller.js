@@ -11,6 +11,20 @@ const getProduct = async (req, res) => {
   }
 };
 
+const getProductById = async (req, res) => {
+  try {
+    const {
+      params: { idProduct },
+    } = req;
+    const result = await productService.getProductById(idProduct);
+    res.send({ success: true, data: result });
+  } catch (error) {
+    res
+      .status(error.status || 500)
+      .send({ success: false, data: { error: error.message || error } });
+  }
+};
+
 const getProductPaginate = async (req, res, next) => {
   try {
     const { page, perPage } = req.body.pagination;
@@ -75,6 +89,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   getProduct,
+  getProductById,
   addProduct,
   editProduct,
   deleteProduct,
