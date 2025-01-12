@@ -15,7 +15,7 @@ const key = process.env.CERT_KEY;
 
 var corsOptions = {
   origin: [
-    // "http://localhost:3000",
+    "http://localhost:3000",
     "https://uat.osidesigner.com",
 
     "https://osidesigner.com",
@@ -65,21 +65,21 @@ db.sequelize
   .sync({ force: false })
   .then(() => {
     console.log("Synced db.");
-    // app.listen(PORT, () => {
-    //   console.log(`🚀  Server is running on port ${PORT}.`);
-    // });
+    app.listen(PORT, () => {
+      console.log(`🚀  Server is running on port ${PORT}.`);
+    });
 
-    https
-      .createServer(
-        {
-          cert: fs.readFileSync(crt),
-          key: fs.readFileSync(key),
-        },
-        app
-      )
-      .listen(PORT, function () {
-        console.log(`App listening on port ${PORT}`);
-      });
+    // https
+    //   .createServer(
+    //     {
+    //       cert: fs.readFileSync(crt),
+    //       key: fs.readFileSync(key),
+    //     },
+    //     app
+    //   )
+    //   .listen(PORT, function () {
+    //     console.log(`App listening on port ${PORT}`);
+    //   });
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);

@@ -168,6 +168,7 @@ const editProposal = async (
     tallyDesign,
     wbdDesign,
     wellboreImage,
+    proposalDescription,
     simulator,
     solution: {
       sandSolution,
@@ -199,6 +200,7 @@ const editProposal = async (
         gasSimulator,
         chemSimulator,
         wellboreImage,
+        proposalDescription,
         pressureSimulator,
       },
       { where: { id } }
