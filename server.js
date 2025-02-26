@@ -58,7 +58,8 @@ app.use(function (req, res, next) {
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://uat.osidesigner.com, https://osidesigner.com"
+    "https://uat.osidesigner.com"
+    // , https://osidesigner.com"
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
