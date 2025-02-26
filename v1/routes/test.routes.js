@@ -5,7 +5,7 @@ const getTest = async (req, res) => {
   try {
     res.send({
       success: true,
-      data: "Server is working fine, you're the problem",
+      data: "Server is working fine, you're the one is not",
     });
   } catch (error) {
     res

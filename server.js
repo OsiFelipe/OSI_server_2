@@ -13,17 +13,30 @@ const PORT = process.env.DB_PORT || 8080;
 const crt = process.env.CERT_CRT;
 const key = process.env.CERT_KEY;
 
-var corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "https://uat.osidesigner.com",
+// var corsOptions = {
+//   origin: [
+//     "http://localhost:3000",
+//     "https://uat.osidesigner.com",
 
-    "https://osidesigner.com",
-  ],
-  exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],
-};
+//     "https://osidesigner.com",
+//   ],
+//   exposedHeaders: ["X-Total-Records", "X-Total-Pages", "X-Current-Page"],
+// };
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: ["https://uat.osidesigner.com"], // Allow only this origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed request headers
+    exposedHeaders: [
+      "X-Authorization",
+      "X-Total-Records",
+      "X-Total-Pages",
+      "X-Current-Page",
+    ],
+    credentials: true, // Allow credentials (e.g., cookies)
+  })
+);
 
 app.use(function (req, res, next) {
   res.header(
@@ -33,12 +46,29 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.all("/*", function (req, res, next) {
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+// app.all("/*", function (req, res, next) {
+//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "X-Requested-With,     Content-Type"
+//   );
+//   next();
+// });
+
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://uat.osidesigner.com, https://osidesigner.com"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
-    "X-Requested-With,     Content-Type"
+    "Content-Type, Authorization, Origin, X-Requested-With, Content-Type, Accept"
   );
+  res.header("Access-Control-Allow-Credentials", "true");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
   next();
 });
 
@@ -65,21 +95,21 @@ db.sequelize
   .sync({ force: false })
   .then(() => {
     console.log("Synced db.");
-    // app.listen(PORT, () => {
-    //   console.log(`🚀  Server is running on port ${PORT}.`);
-    // });
+    app.listen(PORT, () => {
+      console.log(`🚀  Server is running on port ${PORT}.`);
+    });
 
-    https
-      .createServer(
-        {
-          cert: fs.readFileSync(crt),
-          key: fs.readFileSync(key),
-        },
-        app
-      )
-      .listen(PORT, function () {
-        console.log(`App listening on port ${PORT}`);
-      });
+    // https
+    //   .createServer(
+    //     {
+    //       cert: fs.readFileSync(crt),
+    //       key: fs.readFileSync(key),
+    //     },
+    //     app
+    //   )
+    //   .listen(PORT, function () {
+    //     console.log(`App listening on port ${PORT}`);
+    //   });
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
