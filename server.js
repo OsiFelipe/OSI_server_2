@@ -72,6 +72,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  console.log("Host header:", req.headers.origin);
+  next();
+});
+
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.static("public"));
 app.use(
