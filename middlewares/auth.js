@@ -8,7 +8,22 @@ const SEED = process.env.SEED || "este-es-el-seed";
 // Verfy Token
 // ==========================
 let verificaToken = (req, res, next) => {
-  let token = req.get("token");
+  const authHeader = req.get("Authorization");
+  if (!authHeader) {
+    return res.status(401).json({
+      ok: false,
+      error: {
+        message: "No valid token",
+      },
+    });
+  }
+  const [bearer, token] = authHeader.split(" ");
+  if (bearer !== "Bearer") {
+    return error(res, STATUS_CODES.BAD_REQUEST, {
+      success: false,
+      message: "The authentication header is malformed.",
+    });
+  }
   jwt.verify(token, SEED, (err, decoded) => {
     if (err) {
       return res.status(401).json({
@@ -46,7 +61,22 @@ let verificaToken = (req, res, next) => {
 // Verfy Token Client
 // ==========================
 let verificaTokenClient = (req, res, next) => {
-  let token = req.get("token");
+  const authHeader = req.get("Authorization");
+  if (!authHeader) {
+    return res.status(401).json({
+      ok: false,
+      error: {
+        message: "No valid token",
+      },
+    });
+  }
+  const [bearer, token] = authHeader.split(" ");
+  if (bearer !== "Bearer") {
+    return error(res, STATUS_CODES.BAD_REQUEST, {
+      success: false,
+      message: "The authentication header is malformed.",
+    });
+  }
   jwt.verify(token, SEED, (err, decoded) => {
     if (err) {
       return res.status(401).json({
