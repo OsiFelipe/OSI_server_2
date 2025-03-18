@@ -25,7 +25,7 @@ const key = process.env.CERT_KEY;
 
 app.use(
   cors({
-    origin: ["https://uat.osidesigner.com"], // Allow only this origin
+    origin: ["https://osidesigner.com"], // Allow only this origin
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed request headers
     exposedHeaders: [
