@@ -31,7 +31,7 @@ const getPullingByKey = (req, res) => {
       res.setHeader("Content-Type", "application/pdf");
       res.setHeader(
         "Content-Disposition",
-        'inline; filename="' + req.params.key + '"'
+        'inline; filename="' + req.params.key + '"',
       );
       res.send({ success: true, data: buffer });
     });
@@ -47,6 +47,7 @@ const uploadToAws = (req, res) => {
     const { customName } = req.body;
     const client = JSON.parse(req.body.client);
     const well = JSON.parse(req.body.well);
+    const installationDate = req.body.installationDate;
     const fileName = req.file.originalname;
     const key =
       client.name +
@@ -75,11 +76,12 @@ const uploadToAws = (req, res) => {
             well,
             customName,
             key,
-            fileName
+            fileName,
+            installationDate,
           );
           res.send({ success: true, data: result });
         }
-      }
+      },
     );
   } catch (err) {
     console.log(err);

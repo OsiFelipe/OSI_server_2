@@ -20,6 +20,11 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      installationDate: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null,
+      },
       path: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -34,7 +39,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     {
       tableName: "tbPulling",
-    }
+    },
   );
 
   return Pulling;

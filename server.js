@@ -25,7 +25,7 @@ const key = process.env.CERT_KEY;
 
 app.use(
   cors({
-    origin: ["https://osidesigner.com"], // Allow only this origin
+    origin: ["http://localhost:3000"], // Allow only this origin
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed request headers
     exposedHeaders: [
@@ -46,21 +46,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.all("/*", function (req, res, next) {
-//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "X-Requested-With,     Content-Type"
-//   );
-//   next();
-// });
-
 app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://osidesigner.com"
-    // , https://osidesigner.com"
-  );
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
@@ -73,11 +60,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  console.log("Host header:", req.headers.origin);
-  next();
-});
-
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.static("public"));
 app.use(
@@ -87,14 +69,6 @@ app.use(
     parameterLimit: 50000,
   })
 );
-
-// app.use(function (req, res, next) {
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
@@ -118,21 +92,21 @@ db.sequelize
   .sync({ force: false })
   .then(() => {
     console.log("Synced db.");
-    // app.listen(PORT, () => {
-    //   console.log(`🚀  Server is running on port ${PORT}.`);
-    // });
+    app.listen(PORT, () => {
+      console.log(`🚀  Server is running on port ${PORT}.`);
+    });
 
-    https
-      .createServer(
-        {
-          cert: fs.readFileSync(crt),
-          key: fs.readFileSync(key),
-        },
-        app
-      )
-      .listen(PORT, function () {
-        console.log(`App listening on port ${PORT}`);
-      });
+    // https
+    //   .createServer(
+    //     {
+    //       cert: fs.readFileSync(crt),
+    //       key: fs.readFileSync(key),
+    //     },
+    //     app
+    //   )
+    //   .listen(PORT, function () {
+    //     console.log(`App listening on port ${PORT}`);
+    //   });
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);

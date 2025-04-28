@@ -13,13 +13,21 @@ const getPullingByWellId = async (idWell) => {
   }
 };
 
-const addPulling = async (client, well, customName, path, fileName) => {
+const addPulling = async (
+  client,
+  well,
+  customName,
+  path,
+  fileName,
+  installationDate,
+) => {
   try {
     const result = await pulling.create({
       idClient: client.id,
       idWell: well.id,
       customName: customName + "-" + fileName,
       path,
+      installationDate,
       date: new Date(),
       active: true,
     });
@@ -37,7 +45,7 @@ const deletePulling = async ({ id }) => {
       },
       {
         where: { id },
-      }
+      },
     );
     return result;
   } catch (error) {
