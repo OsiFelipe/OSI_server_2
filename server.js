@@ -35,13 +35,13 @@ app.use(
       "X-Current-Page",
     ],
     credentials: true, // Allow credentials (e.g., cookies)
-  })
+  }),
 );
 
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept",
   );
   next();
 });
@@ -51,7 +51,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Origin, X-Requested-With, Content-Type, Accept"
+    "Content-Type, Authorization, Origin, X-Requested-With, Content-Type, Accept",
   );
   res.header("Access-Control-Allow-Credentials", "true");
   if (req.method === "OPTIONS") {
@@ -67,14 +67,14 @@ app.use(
     limit: "50mb",
     extended: true,
     parameterLimit: 50000,
-  })
+  }),
 );
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
   res.header(
     "Access-Control-Allow-Headers",
-    "X-Requested-With,     Content-Type"
+    "X-Requested-With,     Content-Type",
   );
   next();
 });
@@ -92,21 +92,21 @@ db.sequelize
   .sync({ force: false })
   .then(() => {
     console.log("Synced db.");
-    app.listen(PORT, () => {
-      console.log(`🚀  Server is running on port ${PORT}.`);
-    });
+    // app.listen(PORT, () => {
+    //   console.log(`🚀  Server is running on port ${PORT}.`);
+    // });
 
-    // https
-    //   .createServer(
-    //     {
-    //       cert: fs.readFileSync(crt),
-    //       key: fs.readFileSync(key),
-    //     },
-    //     app
-    //   )
-    //   .listen(PORT, function () {
-    //     console.log(`App listening on port ${PORT}`);
-    //   });
+    https
+      .createServer(
+        {
+          cert: fs.readFileSync(crt),
+          key: fs.readFileSync(key),
+        },
+        app,
+      )
+      .listen(PORT, function () {
+        console.log(`App listening on port ${PORT}`);
+      });
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
@@ -117,7 +117,7 @@ app.use(express.json());
 app.use(
   bodyParser.urlencoded({
     extended: false,
-  })
+  }),
 );
 app.use(bodyParser.json());
 
