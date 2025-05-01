@@ -20,6 +20,9 @@ const routes = [
   require("./routes/combo.routes"),
   require("./routes/pulling.routes"),
   require("./routes/pullingDesign.routes"),
+  require("./routes/proposalClient.routes"),
+  require("./routes/chemicalTrackerClient.routes"),
+  require("./routes/test.routes"),
   require("./routes/test.routes"),
 ];
 
@@ -33,7 +36,7 @@ module.exports = function router(app) {
           verificaToken,
           verifyRole,
           verificaTokenClient,
-          verifyRoleClient
+          verifyRoleClient,
         );
       })
     );

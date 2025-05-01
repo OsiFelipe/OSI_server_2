@@ -1,5 +1,7 @@
 const AWS = require("aws-sdk");
 const pullingService = require("../services/pulling");
+const chemicalTrackerService = require("../services/chemicalTrackerClient");
+const proposalClientService = require("../services/proposalClient");
 const { generateRandomString } = require("../helpers/utils");
 
 AWS.config.update({
@@ -12,7 +14,7 @@ const s3 = new AWS.S3();
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 
-const getPullingByKey = (req, res) => {
+const getDocumentByKey = (req, res) => {
   try {
     const { key } = req.body;
     const s3params = {
@@ -44,7 +46,7 @@ const getPullingByKey = (req, res) => {
 
 const uploadToAws = (req, res) => {
   try {
-    const { customName } = req.body;
+    const { customName, type } = req.body;
     const client = JSON.parse(req.body.client);
     const well = JSON.parse(req.body.well);
     const installationDate = req.body.installationDate;
@@ -71,14 +73,37 @@ const uploadToAws = (req, res) => {
             .status(err.status || 500)
             .send({ success: false, data: { error: err.message || err } });
         } else {
-          const result = await pullingService.addPulling(
-            client,
-            well,
-            customName,
-            key,
-            fileName,
-            installationDate,
-          );
+          let result;
+          switch (type) {
+            case "pulling":
+              result = await pullingService.addPulling(
+                client,
+                well,
+                customName,
+                key,
+                fileName,
+                installationDate,
+              );
+
+            case "proposal":
+              result = await proposalClientService.addProposalClient(
+                client,
+                well,
+                key,
+                fileName,
+              );
+              break;
+            case "chemical-tracker":
+              result = await chemicalTrackerService.addChemicalTrackerClient(
+                client,
+                well,
+                key,
+                fileName,
+              );
+              break;
+            default:
+              break;
+          }
           res.send({ success: true, data: result });
         }
       },
@@ -92,6 +117,6 @@ const uploadToAws = (req, res) => {
 };
 
 module.exports = {
-  getPullingByKey,
+  getDocumentByKey,
   uploadToAws,
 };

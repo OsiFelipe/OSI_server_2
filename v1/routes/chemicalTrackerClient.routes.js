@@ -1,5 +1,5 @@
 const express = require("express");
-const pullingController = require("../../controllers/pulling.controller");
+const chemicalTrackerClientController = require("../../controllers/chemicalTrackerClient.controller");
 const awsController = require("../../controllers/aws.controller");
 const { uploadFile } = require("../../middlewares/upload");
 const router = express.Router();
@@ -12,19 +12,23 @@ module.exports = (
   verifyRoleClient,
 ) => {
   router
-    .route("/pulling-client/:idWell")
+    .route("/chemical-client/:idWell")
     .get(
       verificaTokenClient,
       verifyRoleClient([3]),
-      pullingController.getPullingByWellId,
+      chemicalTrackerClientController.getChemicalByWellId,
     );
 
   router
-    .route("/pulling-list/:idWell")
-    .get(verificaToken, verifyRole([3]), pullingController.getPullingByWellId);
+    .route("/chemical-list/:idWell")
+    .get(
+      verificaToken,
+      verifyRole([3]),
+      chemicalTrackerClientController.getChemicalByWellId,
+    );
 
   router
-    .route("/pdf-pulling")
+    .route("/pdf-chemical")
     .post(
       verificaTokenClient,
       verifyRoleClient([3]),
@@ -32,16 +36,20 @@ module.exports = (
     );
 
   router
-    .route("/pulling-upload")
+    .route("/chemical-upload")
     .post(uploadFile.single("file"), awsController.uploadToAws);
 
   router
-    .route("/pdf-pulling-adm")
+    .route("/pdf-chemical-adm")
     .post(verificaToken, verifyRole([3]), awsController.getDocumentByKey);
 
   router
-    .route("/pulling-file/:idPulling")
-    .delete(verificaToken, verifyRole([3]), pullingController.deletePulling);
+    .route("/chemical-file/:idChemical")
+    .delete(
+      verificaToken,
+      verifyRole([3]),
+      chemicalTrackerClientController.deleteChemicalTrackerClient,
+    );
 
   app.use(process.env.URI_API, router);
 };
