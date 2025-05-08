@@ -18,14 +18,14 @@ const getChemicalByWellId = async (req, res) => {
 const deleteChemicalTrackerClient = async (req, res) => {
   try {
     const {
-      params: { idChemicalTracker },
+      params: { idChemical },
     } = req;
-    if (idChemicalTracker === "undefined") {
+    if (idChemical === "undefined") {
       throw "Missing Property";
     }
     const result =
       await chemicalTrackerClientService.deleteChemicalTrackerClient({
-        id: idChemicalTracker,
+        id: idChemical,
       });
     res.send({ success: true, data: result });
   } catch (error) {

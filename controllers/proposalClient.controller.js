@@ -16,13 +16,13 @@ const getProposalByWellId = async (req, res) => {
 const deleteProposalClient = async (req, res) => {
   try {
     const {
-      params: { idProposalClient },
+      params: { idProposal },
     } = req;
-    if (idProposalClient === "undefined") {
+    if (idProposal === "undefined") {
       throw "Missing Property";
     }
     const result = await proposalClientService.deleteProposalClient({
-      id: idProposalClient,
+      id: idProposal,
     });
     res.send({ success: true, data: result });
   } catch (error) {
