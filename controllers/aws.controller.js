@@ -69,6 +69,7 @@ const uploadToAws = (req, res) => {
       },
       async (err, data) => {
         if (err) {
+          console.log(err);
           return res
             .status(err.status || 500)
             .send({ success: false, data: { error: err.message || err } });
