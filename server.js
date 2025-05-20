@@ -14,7 +14,7 @@ const crt = process.env.CERT_CRT;
 const key = process.env.CERT_KEY;
 app.use(
   cors({
-    origin: ["https://osidesigner.com"], // Allow only this origin
+    origin: ["https://osidesigner.com", "https://uat.osidesigner.com"], // Allow only this origin
     // origin: ["http://localhost:3000"], // Allow only this origin
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed request headers
@@ -37,7 +37,8 @@ app.use(function (req, res, next) {
 });
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://osidesigner.com");
+  // res.header("Access-Control-Allow-Origin", "https://osidesigner.com");
+  res.header("Access-Control-Allow-Origin", "https://uat.osidesigner.com");
   // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
